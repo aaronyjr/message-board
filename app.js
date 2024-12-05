@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('node:path');
 const createIndexRouter = require("./routes/indexRoute");
+const createNewMessageRouter = require("./routes/newRoute.js")
 
 const PORT = 8000
 
@@ -21,7 +22,9 @@ const messages = [
     }
   ];
 
+app.use(express.urlencoded({ extended: true }));
 app.use("/", createIndexRouter(messages))
+app.use("/new", createNewMessageRouter())
 
 app.listen(PORT, () => {
     console.log(`Server is running on: ${PORT}`)
