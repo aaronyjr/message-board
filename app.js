@@ -8,6 +8,7 @@ const PORT = 8000
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
 
 const messages = [
     {
@@ -22,9 +23,8 @@ const messages = [
     }
   ];
 
-app.use(express.urlencoded({ extended: true }));
 app.use("/", createIndexRouter(messages))
-app.use("/new", createNewMessageRouter())
+app.use("/new", createNewMessageRouter(messages))
 
 app.listen(PORT, () => {
     console.log(`Server is running on: ${PORT}`)
